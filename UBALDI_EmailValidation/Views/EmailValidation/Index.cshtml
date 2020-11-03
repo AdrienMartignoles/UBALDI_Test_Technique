@@ -1,0 +1,88 @@
+﻿@model UBALDI_EmailValidation.Models.EmailValidation
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Email Validation</title>
+</head>
+<body>
+    <div id="maindiv"> 
+        <h1>Email Validation</h1>
+
+        <div>
+            @using (Html.BeginForm())
+            {
+                <p>Try to validate your email:</p>
+                @Html.TextBox("email_ToValidate", Model.Email);
+                <input type="submit" value="Validate" />
+            }
+        </div>
+    </div>
+
+    <div id="resultsdiv">
+        <h1>Results</h1>
+        <div>
+            <p>@ViewData["message"]</p>
+            <p>@ViewData["message_validity"]</p>
+        </div>
+    </div>
+</body>
+</html>
+
+@{
+
+    var visibility = "hidden";
+    var color = "black";
+    
+    if (Model.Email == null)
+    {
+        visibility = "hidden";
+        color = "black";
+    }
+    else if (Model.IsValid) 
+    {        
+        visibility = "visible";
+        color = "green";
+    }
+    else if (!Model.IsValid)
+    {
+        visibility = "visible";
+        color = "red";
+    }
+}
+
+<style>
+    #maindiv
+    {
+        border: solid 1px black;
+        padding: 10px;
+        margin-bottom: 50px;        
+    }
+
+    #maindiv div, #resultsdiv div
+    {
+        margin: auto;
+        width: fit-content;
+    }
+
+    h1
+    {
+        margin: auto;
+        width: fit-content;
+    }
+
+    #resultsdiv 
+    {
+        border: solid 1px black;
+        padding: 10px;
+        color: @color;
+        visibility: @visibility;        
+    }
+
+</style>
